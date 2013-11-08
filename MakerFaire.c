@@ -2,10 +2,10 @@
 #pragma config(Sensor, S1,     ,               sensorI2CMuxController)
 #pragma config(Motor,  mtr_S1_C1_1,     leftMotor,     tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C1_2,     rightMotor,    tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C2_1,     motorF,        tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C2_1,     armMotor,      tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_2,     motorG,        tmotorTetrix, openLoop)
-#pragma config(Servo,  srvo_S1_C3_1,    servo1,               tServoNone)
-#pragma config(Servo,  srvo_S1_C3_2,    servo2,               tServoNone)
+#pragma config(Servo,  srvo_S1_C3_1,    gripperServo,         tServoStandard)
+#pragma config(Servo,  srvo_S1_C3_2,    faceServo,            tServoStandard)
 #pragma config(Servo,  srvo_S1_C3_3,    servo3,               tServoNone)
 #pragma config(Servo,  srvo_S1_C3_4,    servo4,               tServoNone)
 #pragma config(Servo,  srvo_S1_C3_5,    servo5,               tServoNone)
@@ -18,8 +18,10 @@ void robotControl()
 	float speed;
 	float factor;
 	int servo1pos;
+	bool faceDir = true;
 	while(true)
 	{
+		faceDir = faceDir;
 		getJoystickSettings(joystick);  // Update Buttons and Joysticks
 		if( joy1Btn(3) )//This provides a speed toggle,
 		{
@@ -34,15 +36,27 @@ void robotControl()
 		{
 			factor = 5.00; //Slows the driving down to a reasonable amount.
 		}
+
+		motor[armMotor] = joystick.joy2_y1/5;
 		motor[rightMotor] = joystick.joy1_y1/factor;
 		motor[leftMotor] = joystick.joy1_y2/factor;
 
 		/*Servo Section*/
 
-		if((joy1Btn(1))) servo1pos += 2;
-		else if((joy1Btn(2))) servo1pos -= 2;
+		if((joy2Btn(1))) servo1pos += 2;
+		else if((joy2Btn(2))) servo1pos -= 2;
 		servo[servo1] = servo1pos;
 		wait1Msec(20);
+
+		if(faceDir)  servo[faceServo] = 240;
+		if(!faceDir)  servo[faceServo] = 10;
+
+		/*Noises*/
+
+		int min = 1000;
+	  int max = 6000;
+
+    PlayTone((rand() % (max-min)) + min, 5);     //rand() % (max-min)) + min;
 	}
 }
 task main()

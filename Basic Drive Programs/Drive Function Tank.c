@@ -36,6 +36,7 @@ void controlledDriveTank()
 		}
 		motor[rightMotor] = joystick.joy1_y1/factor;
 		motor[leftMotor] = joystick.joy1_y2/factor;
+		PlayTone(abs(joystick.joy2_y2 / 10) * (abs((int)joystick.joy2_x1 + 5 / 10)), 10);
 
 		/*Servo Testing*/
 
@@ -47,5 +48,6 @@ void controlledDriveTank()
 }
 task main()
 {
+	nVolume = 4;
 	controlledDriveTank();
 }
