@@ -37,7 +37,7 @@ void go(int l, int r, float t)
 task main()
 {
 	int x;
-	go(10,10,8000);		//Go go
+	go(10,10,2000);		//Go go
 	do
 	{
 		x = readAxis(30);
@@ -50,11 +50,27 @@ task main()
   go(20,20,1500);
 
   PlaySound(soundBeepBeep);
-  go(-25,25,900);			//Turn towards feild
+  go(25,-25,1200);			//Turn towards feild
 
   wait1Msec(1000);
   PlaySound(soundBeepBeep);
-  go(100,100,900);			//Ram into pole
+  go(20,20,3000);			//Ram into pole
+
+
+  PlaySound(soundBeepBeep);
+  go(25,-25,1200);			//Turn towards feild
+
+  wait1Msec(1000);
+  PlaySound(soundBeepBeep);
+  go(20,20,3000);			//Ram into pole
+
+  PlaySound(soundBeepBeep);
+  go(-25,25,1200);			//Turn towards feild
+
+  wait1Msec(1000);
+  PlaySound(soundBeepBeep);
+  go(20,20,3000);			//Ram into pole
+
 
   go(40,-40,900);
   go(100,100,1000);
