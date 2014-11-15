@@ -15,12 +15,12 @@ task main()
 		nxtDisplayCenteredBigTextLine(4, "%d", nMotorEncoder[motor1]);
 		while(nNxtButtonPressed == 1)
 		{
-			motor[motor1] = 100;
+			motor[motor1] = 10;
 			nxtDisplayCenteredBigTextLine(4, "%d", nMotorEncoder[motor1]);
 		}
 		while(nNxtButtonPressed == 2)
 		{
-			motor[motor1] = -100;
+			motor[motor1] = -10;
 			nxtDisplayCenteredBigTextLine(4, "%d", nMotorEncoder[motor1]);
 		}
 		motor[motor1] = 0;

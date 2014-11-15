@@ -28,15 +28,15 @@ void controlledDriveTank()
 		}
 		if(speed)
 		{
-			factor = 1.81429;
+			factor = 0.781;
 		}
 		else
 		{
-			factor = 5.00; //Slows the driving down to a reasonable amount.
+			factor = .391; //Slows the driving down to a reasonable amount.
 		}
-		motor[rightMotor] = joystick.joy1_y1/factor;
-		motor[leftMotor] = joystick.joy1_y2/factor;
-		PlayTone(abs(joystick.joy2_y2 / 10) * (abs((int)joystick.joy2_x1 + 5 / 10)), 10);
+		motor[rightMotor] = joystick.joy1_y1*factor;
+		motor[leftMotor] = -joystick.joy1_y2*factor;
+		//PlayTone(abs(joystick.joy2_y2 / 10) * (abs((int)joystick.joy2_x1 + 5 / 10)), 10);
 
 		/*Servo Testing*/
 
