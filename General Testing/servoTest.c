@@ -21,6 +21,7 @@ task main()
 		if(joy1Btn(2))
 		{
 			servo[servo1] = 100;
+
 			wait1Msec(400);
 		}
 		servo[servo1] = 240;
