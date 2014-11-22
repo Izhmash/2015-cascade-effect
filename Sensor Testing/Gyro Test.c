@@ -1,8 +1,8 @@
 #pragma config(Sensor, S1,     HTGYRO,              sensorAnalogInactive)
 
 /**
- *	This program finds the current heading with the HT Gyro Sensor
- */
+*	This program finds the current heading with the HT Gyro Sensor
+*/
 
 #include "hitechnic-gyro.h"
 
@@ -24,10 +24,10 @@ task main()
 	HTGYROstartCal(HTGYRO);
 	while(true){
 		gyroRaw = HTGYROreadRot(HTGYRO);
-    tempW = 0;
-    avgW = 0;
-    count = 0;
-    //angle = 0;
+		tempW = 0;
+		avgW = 0;
+		count = 0;
+		//angle = 0;
 		if(abs(gyroRaw) > safetyValue){
 			time1[T1] = 0;
 			while(abs(gyroRaw) > safetyValue){
