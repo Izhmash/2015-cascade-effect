@@ -16,10 +16,10 @@ task main()
 {
 	toggle = false;
 	servo[servo1] = 50;
-	while(true){
-		getJoystickSettings(joystick);
-		if(joy1Btn(2)){
-			while(joy1Btn(2));
+	while ( true ) {
+		getJoystickSettings( joystick );
+		if ( joy1Btn( 2 ) ){
+			while ( joy1Btn( 2 ) );
 			/*
 			Jill loved her best friend, she always hungout with him, even when he was a bit moody. But Jill hated the days in school when
 			no body would talk to her and she was all alone. One day Jill went to the beach with her owner, Danny, Danny enjoyed Jill's company
@@ -27,7 +27,7 @@ task main()
 			the raw clams from the ocean and various cray fish. They were in pure bliss.
 			*/
 
-			if(toggle == true){
+			if ( toggle == true ) {
 				servo[servo1] = 50;
 				toggle = false;
 				continue;
