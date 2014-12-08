@@ -43,26 +43,26 @@ task main()
 
 	srand(nSysTime);
 
-	StartTask(liftPresets);
+	startTask(liftPresets);
 
 	while (true) {
 		getJoystickSettings(joystick);
 		if (joy1Btn(2)) {
 			wait1Msec(200);
 			chassisToggle = !chassisToggle;
-			PlayImmediateTone((rand() % (800-300)) + 300, 5);
+			playImmediateTone((rand() % (800-300)) + 300, 5);
 		}
 
 		if (joy2Btn(11)) {
 			wait1Msec(200);
 			bucketToggle = !bucketToggle;
-			PlayImmediateTone((rand() % (800-300)) + 300, 5);
+			playImmediateTone((rand() % (800-300)) + 300, 5);
 		}
 
 		if (joy2Btn(12)) {
 			wait1Msec(200);
 			liftToggle = !liftToggle;
-			PlayImmediateTone((rand() % (800-300)) + 300, 5);
+			playImmediateTone((rand() % (800-300)) + 300, 5);
 		}
 
 		driveChassis(chassisToggle);
@@ -118,7 +118,7 @@ task liftPresets()
 {
 	while(true){
 		if (joy2Btn(2)) {
-			PlayImmediateTone((rand() % (800-300)) + 300, 100);
+			playImmediateTone((rand() % (800-300)) + 300, 100);
 			if (nMotorEncoder[scissorL] < 5000) {
 				while (nMotorEncoder[scissorL] < 5000) {
 					motor[scissorL] = 100;
