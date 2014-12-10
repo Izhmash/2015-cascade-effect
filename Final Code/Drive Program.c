@@ -194,13 +194,13 @@ task liftPresets()
 					motor[scissorR] = -100;
 					nxtDisplayCenteredBigTextLine(4, "%d", nMotorEncoder[scissorR]);
 				}
-				//return;
+
 			} else if (nMotorEncoder[scissorR] > 3000) {
 				while (nMotorEncoder[scissorR] > 3000) {
 					motor[scissorL] = -20;
 					motor[scissorR] = 20;
 				}
-				//return;
+
 			} else {
 				motor[scissorL] = 0;
 				motor[scissorR] = 0;
