@@ -46,26 +46,26 @@ task main()
 
 	srand(nSysTime);
 
-	StartTask(liftPresets);
+	startTask(liftPresets);
 
 	while (true) {
 		getJoystickSettings(joystick);
 		if (joy1Btn(2)) {
 			wait1Msec(200);
 			chassisToggle = !chassisToggle;
-			PlayImmediateTone((rand() % (800-300)) + 300, 5);
+			playImmediateTone((rand() % (800-300)) + 300, 5);
 		}
 
 		if (joy2Btn(11)) {
 			wait1Msec(200);
 			bucketToggle = !bucketToggle;
-			PlayImmediateTone((rand() % (800-300)) + 300, 5);
+			playImmediateTone((rand() % (800-300)) + 300, 5);
 		}
 
 		if (joy2Btn(12)) {
 			wait1Msec(200);
 			liftToggle = !liftToggle;
-			PlayImmediateTone((rand() % (800-300)) + 300, 5);
+			playImmediateTone((rand() % (800-300)) + 300, 5);
 		}
 
 		if (joy2Btn(4)) {
@@ -137,9 +137,15 @@ task liftPresets()
 	while(true) {
 		//PlayImmediateTone((rand() % (800-300)) + 300, 100);
 		if (joy2Btn(2)) {
+<<<<<<< HEAD
 			PlayImmediateTone((rand() % (800-300)) + 300, 100);
 			if (nMotorEncoder[scissorR] < 1000) {
 				while (nMotorEncoder[scissorR] < 1000) {
+=======
+			playImmediateTone((rand() % (800-300)) + 300, 100);
+			if (nMotorEncoder[scissorL] < 5000) {
+				while (nMotorEncoder[scissorL] < 5000) {
+>>>>>>> c88910477a90e8ac3f0a97567bc36c1097e2f8e5
 					motor[scissorL] = 100;
 					motor[scissorR] = -100;
 					nxtDisplayCenteredBigTextLine(4, "%d", nMotorEncoder[scissorR]);
