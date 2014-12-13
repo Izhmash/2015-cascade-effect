@@ -135,17 +135,11 @@ void initServos()
 task liftPresets()
 {
 	while(true) {
-		//PlayImmediateTone((rand() % (800-300)) + 300, 100);
+		PlayImmediateTone((rand() % (800-300)) + 300, 100);
 		if (joy2Btn(2)) {
-<<<<<<< HEAD
 			PlayImmediateTone((rand() % (800-300)) + 300, 100);
 			if (nMotorEncoder[scissorR] < 1000) {
 				while (nMotorEncoder[scissorR] < 1000) {
-=======
-			playImmediateTone((rand() % (800-300)) + 300, 100);
-			if (nMotorEncoder[scissorL] < 5000) {
-				while (nMotorEncoder[scissorL] < 5000) {
->>>>>>> c88910477a90e8ac3f0a97567bc36c1097e2f8e5
 					motor[scissorL] = 100;
 					motor[scissorR] = -100;
 					nxtDisplayCenteredBigTextLine(4, "%d", nMotorEncoder[scissorR]);
