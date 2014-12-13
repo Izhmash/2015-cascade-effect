@@ -34,6 +34,14 @@ static float halfFactor = 0.391;
 
 bool servoToggle;
 
+/*
+ *	Driver 1: Tank drive w/ joysticks, A button fast, B button slow
+ *  	LB Open hitch, RB Close hitch
+ *
+ *	Driver 2: Scissor lift presets (A -> B), bucket arms left stick w/ toggle stick click
+ *		+ bucket servos RT change state, LB Open gate, RB close gate
+ */
+
 task main()
 {
 	servoToggle = false;
@@ -46,30 +54,54 @@ task main()
 
 	srand(nSysTime);
 
-	startTask(liftPresets);
+	StartTask(liftPresets);
 
 	while (true) {
 		getJoystickSettings(joystick);
+
+		//---------------------------Speed Toggles-------------------//
 		if (joy1Btn(2)) {
-			wait1Msec(200);
-			chassisToggle = !chassisToggle;
-			playImmediateTone((rand() % (800-300)) + 300, 5);
+			//wait1Msec(200);
+			chassisToggle = true;
+			PlayImmediateTone((rand() % (800-300)) + 300, 5);
+		}
+		if (joy1Btn(3)) {
+			//wait1Msec(200);
+			chassisToggle = false;
+			PlayImmediateTone((rand() % (800-300)) + 300, 5);
 		}
 
 		if (joy2Btn(11)) {
 			wait1Msec(200);
 			bucketToggle = !bucketToggle;
-			playImmediateTone((rand() % (800-300)) + 300, 5);
+			PlayImmediateTone((rand() % (800-300)) + 300, 5);
 		}
 
 		if (joy2Btn(12)) {
 			wait1Msec(200);
 			liftToggle = !liftToggle;
-			playImmediateTone((rand() % (800-300)) + 300, 5);
+			PlayImmediateTone((rand() % (800-300)) + 300, 5);
 		}
 
-		if (joy2Btn(4)) {
-			while (joy2Btn(4));
+		//-------------------------Servos-----------------------------------//
+		if (joy1Btn(5)) {     //open hitch
+			servo[trailerServo] = 255;
+		}
+
+		if (joy1Btn(6)) {     //close hitch
+			servo[trailerServo] = 127;
+		}
+
+		if (joy2Btn(5)) {     //open hitch
+			servo[gateServo] = 255;
+		}
+
+		if (joy2Btn(6)) {     //close hitch
+			servo[gateServo] = 127;
+		}
+
+		if (joy2Btn(8)) {      //bucket toggle, RT Button
+			while (joy2Btn(8));
 			if (servoToggle == true) {
 				servo[bucketServoL] = 230;
 				servo[bucketServoR] = 25;
@@ -120,8 +152,6 @@ void driveLift(bool t)
 		motor[scissorL] = joystick.joy2_y2 * halfFactor;
 		motor[scissorR] = -joystick.joy2_y2 * halfFactor;
 	}
-
-
 }
 
 void initServos()
@@ -135,7 +165,7 @@ void initServos()
 task liftPresets()
 {
 	while(true) {
-		PlayImmediateTone((rand() % (800-300)) + 300, 100);
+		//PlayImmediateTone((rand() % (800-300)) + 300, 100);
 		if (joy2Btn(2)) {
 			PlayImmediateTone((rand() % (800-300)) + 300, 100);
 			if (nMotorEncoder[scissorR] < 1000) {
@@ -180,17 +210,39 @@ task liftPresets()
 			motor[scissorL] = 0;
 			motor[scissorR] = 0;
 		}
-		if (joy2Btn(3)) {
+		if (joy2Btn(4)) {
 			PlayImmediateTone((rand() % (800-300)) + 300, 100);
-			if (nMotorEncoder[scissorR] < 3000) {
+			if (nMotorEncoder[scissorR] < 4000) {
 				while (nMotorEncoder[scissorR] < 3000) {
 					motor[scissorL] = 100;
 					motor[scissorR] = -100;
 					nxtDisplayCenteredBigTextLine(4, "%d", nMotorEncoder[scissorR]);
 				}
-
+				//return;
 			} else if (nMotorEncoder[scissorR] > 3000) {
 				while (nMotorEncoder[scissorR] > 3000) {
+					motor[scissorL] = -20;
+					motor[scissorR] = 20;
+				}
+				//return;
+			} else {
+				motor[scissorL] = 0;
+				motor[scissorR] = 0;
+			}
+			motor[scissorL] = 0;
+			motor[scissorR] = 0;
+		}
+		if (joy2Btn(3)) {
+			PlayImmediateTone((rand() % (800-300)) + 300, 100);
+			if (nMotorEncoder[scissorR] < 3000) {
+				while (nMotorEncoder[scissorR] < 4000) {
+					motor[scissorL] = 100;
+					motor[scissorR] = -100;
+					nxtDisplayCenteredBigTextLine(4, "%d", nMotorEncoder[scissorR]);
+				}
+
+			} else if (nMotorEncoder[scissorR] > 4000) {
+				while (nMotorEncoder[scissorR] > 4000) {
 					motor[scissorL] = -20;
 					motor[scissorR] = 20;
 				}
@@ -202,6 +254,7 @@ task liftPresets()
 			motor[scissorL] = 0;
 			motor[scissorR] = 0;
 		}
+
 		wait1Msec(10);
 	}
 }
