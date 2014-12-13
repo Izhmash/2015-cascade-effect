@@ -42,7 +42,7 @@ task main()
 	{
 		x = readAxis(30);
 		go(20,20,200);
-	}while(x < 85);					//Continue untill at bottom of ramp
+	}while(x < 85);					//Continue until at bottom of ramp
 
 	motor[rightMotor] = 0;
 	motor[leftMotor] = 0;
@@ -50,7 +50,7 @@ task main()
   go(20,20,1500);
 
   PlaySound(soundBeepBeep);
-  go(-25,25,900);			//Turn towards feild
+  /*go(-25,25,900);			//Turn towards field
 
   wait1Msec(1000);
   PlaySound(soundBeepBeep);
@@ -63,4 +63,5 @@ task main()
 
   go(50,-50,1000);
   go(100,100,1000);
+  */
 }
