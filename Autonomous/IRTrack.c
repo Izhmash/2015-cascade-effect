@@ -21,14 +21,16 @@ static int _dirACR;
 static int acS1L, acS2L, acS3L, acS4L, acS5L;
 static int acS1R, acS2R, acS3R, acS4R, acS5R;
 
+//IR Sensors aligned at the 6 and 4 positions w/ beacon at 1 meter
+
 task main()
 {
-	while(true){
+	while (true) {
+		//eraseDisplay();
 		updateSensors();
 		nxtDisplayCenteredBigTextLine(3, "%d", _dirACL);
 		nxtDisplayCenteredBigTextLine(6, "%d", _dirACR);
 		//nxtDisplayCenteredBigTextLine(3, "%d", (_dirACL + _dirACR)/2);
-
 	}
 }
 
@@ -42,4 +44,17 @@ static void updateSensors()
 
 	HTIRS2readAllACStrength(IRL,  acS1L,  acS2L,  acS3L,  acS4L,  acS5L);
 	HTIRS2readAllACStrength(IRR,  acS1R,  acS2R,  acS3R,  acS4R,  acS5R);
+}
+
+void rotateTowardsIR()
+{
+	if (_dirACL > 6 || _dirACR > 4) {
+		motor[leftMotor] = -20;       //turn left
+		motor[rightMotor] = 20;
+	} else if (_dirACL < 6 || _dirACR < 4) {
+		motor[leftMotor] = 20;       //turn right
+		motor[rightMotor] = -20;
+	} else {
+		return;
+	}
 }
