@@ -15,6 +15,7 @@
 #include "..\Driver Suite\drivers\hitechnic-irseeker-v2.h"
 
 void updateSensors();
+void rotateTowardsIR();
 
 static int _dirACL;
 static int _dirACR;
@@ -30,6 +31,7 @@ task main()
 		updateSensors();
 		nxtDisplayCenteredBigTextLine(3, "%d", _dirACL);
 		nxtDisplayCenteredBigTextLine(6, "%d", _dirACR);
+		rotateTowardsIR();
 		//nxtDisplayCenteredBigTextLine(3, "%d", (_dirACL + _dirACR)/2);
 	}
 }
@@ -48,13 +50,25 @@ static void updateSensors()
 
 void rotateTowardsIR()
 {
-	if (_dirACL > 6 || _dirACR > 4) {
-		motor[leftMotor] = -20;       //turn left
-		motor[rightMotor] = 20;
-	} else if (_dirACL < 6 || _dirACR < 4) {
-		motor[leftMotor] = 20;       //turn right
-		motor[rightMotor] = -20;
-	} else {
-		return;
+	int count = 0;
+	while (_dirACL != 6 || _dirACR != 4) {
+		updateSensors();
+		count++;
+		while (_dirACL > 6 || _dirACR > 4) {
+			motor[leftMotor] = 20 - (count * 2);       //turn left
+			motor[rightMotor] = 20 - (count * 2);
+			updateSensors();
+		}
+		count++;
+		while (_dirACL < 6 || _dirACR < 4) {
+			motor[leftMotor] = -20 + (count * 2);       //turn right
+			motor[rightMotor] = -20 + (count * 2);
+			updateSensors();
+		}
+		if (count == 5) {
+			break;
+		}
+		motor[leftMotor] = 0;
+		motor[rightMotor] = 0;
 	}
 }
