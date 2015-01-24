@@ -38,7 +38,7 @@ task main()
 		//nxtDisplayCenteredBigTextLine(4, "%d", rate2);
 		//nxtDisplayCenteredBigTextLine(4, "%d", rate1 - rate2);
 		writeDebugStreamLine("%d", rate1 - rate2);
-		nxtDisplayCenteredBigTextLine(2, "%d", nMotorEncoder[motor1] - nMotorEncoder[motor2]);
+		nxtDisplayCenteredBigTextLine(2, "%d", nMotorEncoder[motor1]/* - nMotorEncoder[motor2]*/);
 		//nxtDisplayCenteredBigTextLine(4, "%d", nMotorEncoder[motor2]);
 		delay(1);
 	}
@@ -48,12 +48,12 @@ task DriveMotors()
 {
 	while (true) {
 		getJoystickSettings(joystick);
-		if (nMotorEncoder[motor1] < 1100 * 6) {
+		if (nMotorEncoder[motor1] > -5500) {
 			motor[motor1] = joystick.joy1_y1 / 1.27;
 			motor[motor2] = joystick.joy1_y1 / 1.27;
 		} else {
-			motor[motor1] = -10;
-			motor[motor2] = -10;
+			motor[motor1] = 5; //go down a bit
+			motor[motor2] = 5;
 		}
 		delay(1);
 	}
