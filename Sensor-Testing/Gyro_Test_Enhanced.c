@@ -36,7 +36,7 @@ task main()
 				count++;
 			}
 			avgW = (tempW / count);
-			angle = avgW*time1[T1]/1000;  //delta theta = avg_w*t
+			angle = avgW*(25*10^-3)/1000;  //delta theta = avg_w*t
 			time1[T1] = 0;
 		}
 		heading += angle;
