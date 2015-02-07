@@ -31,6 +31,14 @@ task main()
 			nxtDisplayCenteredBigTextLine(2, "%d", nMotorEncoder[motor1]);
 			nxtDisplayCenteredBigTextLine(5, "%d", nMotorEncoder[motor2]);
 		}
+		if (nNxtButtonPressed == 3)
+		{
+			while (nMotorEncoder[motor1] > -3500) {
+				motor[motor1] = -100;
+				nxtDisplayCenteredBigTextLine(2, "%d", nMotorEncoder[motor1]);
+				nxtDisplayCenteredBigTextLine(5, "%d", nMotorEncoder[motor2]);
+			}
+		}
 		motor[motor1] = 0;
 		motor[motor2] = 0;
 	}
