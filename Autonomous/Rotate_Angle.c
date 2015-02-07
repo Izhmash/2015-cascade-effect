@@ -1,6 +1,6 @@
 #pragma config(Hubs,  S1, HTMotor,  HTServo,  none,     none)
 #pragma config(Sensor, S1,     ,               sensorI2CMuxController)
-#pragma config(Sensor, S2,     HTGYRO,              sensorAnalogInactive)
+#pragma config(Sensor, S4,     HTGYRO,              sensorAnalogInactive)
 #pragma config(Motor,  mtr_S1_C1_1,     leftMotor,     tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C1_2,     rightMotor,    tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S1_C2_1,    servo1,               tServoNone)
@@ -53,19 +53,18 @@ void rotateAngle(int a)
 	if (a > 0) {
 		while (heading < reference + a) {
 			//turn right
-			motor[leftMotor] = 20;
-			motor[rightMotor] = 20;
+			motor[leftMotor] = 50;
+			motor[rightMotor] = 50;
 		  playTone(996, 5);
 		}
 		motor[leftMotor] = 0;
 		motor[rightMotor] = 0;
 		return;
-
 	} else {
 		while (heading > reference + a) {
 			//turn left
-			motor[leftMotor] = -20;
-			motor[rightMotor] = -20;
+			motor[leftMotor] = -50;
+			motor[rightMotor] = -50;
 		  playTone(996, 5);
 		}
 	}
@@ -102,7 +101,7 @@ task findHeading()
 		heading += angle;
 		angle = 0;
 		nxtDisplayCenteredBigTextLine(2, "%d", heading);
-		nxtDisplayCenteredBigTextLine(4, "%d", gyroRaw);
+		nxtDisplayCenteredBigTextLine(4, "%d", /*gyroRaw*/HTGYROreadRot(HTGYRO));
 
 		delay(1);
 	}
