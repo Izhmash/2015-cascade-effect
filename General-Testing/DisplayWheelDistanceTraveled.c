@@ -16,7 +16,7 @@
 */
 
 const unsigned byte radiusIn = 2;
-const float radiusM = 5.08;
+const float radiusM = 0.00508;
 
 float s;
 float angle;
@@ -25,15 +25,16 @@ task main()
 {
 	nMotorEncoder[motor1] = 0;     //AndyMark: 1120 ticks/rev
 	while (true) {
-		angle = nMotorEncoder[motor1] * (360 / 1120);
+		angle = nMotorEncoder[motor1] * 360 / 1120;
 		s = angle * radiusM;
 		nxtDisplayCenteredBigTextLine(2, "%f", angle);
 		nxtDisplayCenteredBigTextLine(4, "%f", s);
+		//writeDebugStream("%s", angle);
 
 		while(nNxtButtonPressed == 1) {
 			motor[motor1] = 100;
 			motor[motor2] = -100;
-			angle = nMotorEncoder[motor1] * (360 / 1120);
+			angle = nMotorEncoder[motor1] * 360 / 1120;
 			s = angle * radiusM;
 			nxtDisplayCenteredBigTextLine(2, "%f", angle);
 			nxtDisplayCenteredBigTextLine(4, "%f", s);
@@ -41,10 +42,12 @@ task main()
 		while(nNxtButtonPressed == 2) {
 			motor[motor1] = -100;
 			motor[motor2] = 100;
-			angle = nMotorEncoder[motor1] * (360 / 1120);
+			angle = nMotorEncoder[motor1] * 360 / 1120;
 			s = angle * radiusM;
 			nxtDisplayCenteredBigTextLine(2, "%f", angle);
 			nxtDisplayCenteredBigTextLine(4, "%f", s);
 		}
+		motor[motor1] = 0;
+		motor[motor2] = 0;
 	}
 }
