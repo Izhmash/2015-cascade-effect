@@ -33,8 +33,10 @@ task main()
 {
 	nMotorEncoder[motorL] = 0;
 	nMotorEncoder[motorR] = 0;
-	rotateAngleDeg(motorL, ticks, radM, wheelSep, 360);
 	while (true) {
+		if (nNxtButtonPressed == 3) {
+			rotateAngleDeg(motorL, ticks, radM, wheelSep, 360);
+		}
 		nxtDisplayCenteredTextLine(3, "%f", getRobotAngleDeg(motorL, ticks, radM, wheelSep));
 		while(nNxtButtonPressed == 1) {
 			nxtDisplayCenteredTextLine(3, "%f", getRobotAngleDeg(motorL, ticks, radM, wheelSep));
