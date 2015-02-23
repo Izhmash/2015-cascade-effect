@@ -35,7 +35,7 @@ task main()
 	nMotorEncoder[motorR] = 0;
 	while (true) {
 		if (nNxtButtonPressed == 3) {
-			rotateAngleDeg(motorL, ticks, radM, wheelSep, 360);
+			rotateAngleDeg(motorL, ticks, radM, wheelSep, 90);
 		}
 		nxtDisplayCenteredTextLine(3, "%f", getRobotAngleDeg(motorL, ticks, radM, wheelSep));
 		while(nNxtButtonPressed == 1) {
@@ -92,28 +92,30 @@ float getRobotAngleDeg(tMotor motorT, int ticksPerRev, int radiusM, float wheelS
 	return getRobotAngleRad(motorT, ticksPerRev, radM, wheelSeperation) * 180 / PI;
 }
 
+//wrong direction?
 void rotateAngleRad(tMotor motorT, int ticksPerRev, int radiusM, float wheelSeperation, float angle) {
 	while(getRobotAngleRad(motorT, ticksPerRev, radM, wheelSeperation) < angle) {
 		//turn left
-		motor[motorL] = 30;
-		motor[motorR] = -30;
+		motor[motorL] = 20;
+		motor[motorR] = 20;
 	}
 	while(getRobotAngleRad(motorT, ticksPerRev, radM, wheelSeperation) > angle) {
 		//turn right
-		motor[motorL] = -30;
-		motor[motorR] = 30;
+		motor[motorL] = -20;
+		motor[motorR] = -20;
 	}
 }
 
+//wrong direction?
 void rotateAngleDeg(tMotor motorT, int ticksPerRev, int radiusM, float wheelSeperation, float angle) {
 	while(getRobotAngleDeg(motorT, ticksPerRev, radM, wheelSeperation) < angle) {
 		//turn left
-		motor[motorL] = 30;
-		motor[motorR] = -30;
+		motor[motorL] = 20;
+		motor[motorR] = 20;
 	}
 	while(getRobotAngleDeg(motorT, ticksPerRev, radM, wheelSeperation) > angle) {
 		//turn right
-		motor[motorL] = -30;
-		motor[motorR] = 30;
+		motor[motorL] = -20;
+		motor[motorR] = -20;
 	}
 }
