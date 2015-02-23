@@ -27,6 +27,7 @@ static float halfFactor = 0.391;
 
 task main()
 {
+	nVolume = 1;
 	//setup
 	bool chassisToggle = false;
 	init();
@@ -35,21 +36,42 @@ task main()
 	while (true) {
 		getJoystickSettings(joystick);
 		if (joy1Btn(2)) {
-			wait1Msec(200);
-			chassisToggle = !chassisToggle;
+			chassisToggle = true;
+			playImmediateTone((rand() % (800-300)) + 300, 5);
+		}
+		if(joy1Btn(3)) {
+			chassisToggle = false;
 			playImmediateTone((rand() % (800-300)) + 300, 5);
 		}
 
 		driveChassis(chassisToggle);
 		driveRoller();
 
+		//trailer
 		if (joy1Btn(6)) {
-			servo[gateServo] = 90;
+			//close
+			servo[trailerServoL] = 75;
+			servo[trailerServoR] = 155;
 		}
 		if (joy1Btn(5)) {
+			//open
+			servo[trailerServoL] = 255;
+			servo[trailerServoR] = 155;
+		}
+		//gate
+		if (joy2Btn(6)) {
+			//open
+			servo[gateServo] = 110;
+		}
+		if (joy2Btn(5)) {
+			//close
 			servo[gateServo] = 0;
 		}
 
+		if (joy2Btn(9) && joy2Btn(10)) {
+			nMotorEncoder[liftL] = 0;
+			nMotorEncoder[liftR] = 0;
+		}
 		delay(1);
 	}
 }
@@ -60,6 +82,8 @@ void init() {
 	nMotorEncoder[liftR] = 0;
 	nMotorEncoder[chassisL] = 0;
 	nMotorEncoder[chassisR] = 0;
+	servo[trailerServoL] = 255;
+	servo[trailerServoR] = 155;
 	servo[gateServo] = 0;
 }
 
@@ -92,53 +116,81 @@ task liftPresets() {
 		//highest setting
 		if (joy2Btn(3) && nMotorEncoder[liftL] > -5500) {
 			while (nMotorEncoder[liftL] > -5500) {
+				if (joy2Btn(11) && joy2Btn(12)) {
+					break;
+				}
 				motor[liftL] = -100;
-				motor[liftR] = -100;
+				motor[liftR] = 100;
 			}
 		}
 		// medium-high setting
 		if (joy2Btn(4) && nMotorEncoder[liftL] > -4000) {
 			while (nMotorEncoder[liftL] > -4000) {
+				if (joy2Btn(11) && joy2Btn(12)) {
+					break;
+				}
 				motor[liftL] = -100;
-				motor[liftR] = -100;
+				motor[liftR] = 100;
 			}
 		} else if (joy2Btn(4)) {
 			while (nMotorEncoder[liftL] < -4000) {
+				if (joy2Btn(11) && joy2Btn(12)) {
+					break;
+				}
 				motor[liftL] = 25;
-				motor[liftR] = 25;
+				motor[liftR] = -25;
 			}
 		}
 		// medium-low setting
 		if (joy2Btn(1) && nMotorEncoder[liftL] > -3000) {
 			while (nMotorEncoder[liftL] > -3000) {
+				if (joy2Btn(11) && joy2Btn(12)) {
+					break;
+				}
 				motor[liftL] = -100;
-				motor[liftR] = -100;
+				motor[liftR] = 100;
 			}
 		} else if (joy2Btn(1)) {
 			while (nMotorEncoder[liftL] < -3000) {
+				if (joy2Btn(11) && joy2Btn(12)) {
+					break;
+				}
 				motor[liftL] = 25;
-				motor[liftR] = 25;
+				motor[liftR] = -25;
 			}
 		}
 		// low setting
 		if (joy2Btn(2) && nMotorEncoder[liftL] > -1500) {
 			while (nMotorEncoder[liftL] > -1500) {
+				if (joy2Btn(11) && joy2Btn(12)) {
+					break;
+				}
 				motor[liftL] = -100;
-				motor[liftR] = -100;
+				motor[liftR] = 100;
 			}
 		} else if (joy2Btn(2)) {
 			while (nMotorEncoder[liftL] < -1500) {
+				if (joy2Btn(11) && joy2Btn(12)) {
+					break;
+				}
 				motor[liftL] = 25;
-				motor[liftR] = 25;
+				motor[liftR] = -25;
 			}
 		}
 		// ground setting
 		if (joystick.joy2_TopHat == 0) {
 			while (nMotorEncoder[liftL] < 0) {
+				if (joy2Btn(11) && joy2Btn(12)) {
+					break;
+				}
 				motor[liftL] = 25;
-				motor[liftR] = 25;
+				motor[liftR] = -25;
 			}
 		}
+
+		//manual lift control
+		motor[liftL] = joystick.joy2_y1 * fullFactor;
+		motor[liftR] = joystick.joy2_y1 * fullFactor;
 		delay(1);
 	}
 }
