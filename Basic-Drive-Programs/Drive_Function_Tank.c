@@ -21,17 +21,14 @@ void controlledDriveTank()
 	while(true)
 	{
 		getJoystickSettings(joystick);  // Update Buttons and Joysticks
-		if( joy1Btn(3) )//This provides a speed toggle,
-		{
+		if (joy1Btn(3)) { //This provides a speed toggle
 			speed = !speed;
 			wait1Msec(10);
 		}
-		if(speed)
-		{
+		if (speed) {
 			factor = 0.781;
 		}
-		else
-		{
+		else {
 			factor = .391; //Slows the driving down to a reasonable amount.
 		}
 		motor[rightMotor] = joystick.joy1_y1*factor;

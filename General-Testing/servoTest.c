@@ -15,7 +15,7 @@ bool toggle;
 task main()
 {
 	//servoChangeRate[servo1] = 0;
-	while (true) {
+	/*while (true) {
 		for (int i = 0; i < 255; ++i) {
 			servo[servo1] = i;
 			delay(10);
@@ -24,10 +24,19 @@ task main()
 			servo[servo1] = j;
 			delay(10);
 		}
+	*/
 		/*servo[servo1] = 255;
 		delay(2000);
 		servo[servo1] = 0;
 		delay(2000);*/
+	//}
+	while (true) {
+		if (nNxtButtonPressed == 1) {
+			servo[servo1] = 150;
+		}
+		if (nNxtButtonPressed == 2) {
+			servo[servo1] = 0;
+		}
 	}
 }
 
