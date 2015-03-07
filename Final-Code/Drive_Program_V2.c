@@ -51,12 +51,12 @@ task main()
 		if (joy1Btn(6)) {
 			//close
 			servo[trailerServoL] = 75;
-			servo[trailerServoR] = 155;
+			servo[trailerServoR] = 180;
 		}
 		if (joy1Btn(5)) {
 			//open
 			servo[trailerServoL] = 255;
-			servo[trailerServoR] = 155;
+			servo[trailerServoR] = 0;
 		}
 		//gate
 		if (joy2Btn(6)) {
@@ -190,7 +190,7 @@ task liftPresets() {
 
 		//manual lift control
 		motor[liftL] = joystick.joy2_y1 * fullFactor;
-		motor[liftR] = joystick.joy2_y1 * fullFactor;
+		motor[liftR] = -joystick.joy2_y1 * fullFactor;
 		delay(1);
 	}
 }
