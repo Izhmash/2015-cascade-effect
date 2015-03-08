@@ -27,7 +27,7 @@ static float halfFactor = 0.391;
 
 task main()
 {
-	nVolume = 1;
+	nVolume = 4;
 	//setup
 	bool chassisToggle = false;
 	init();
@@ -35,6 +35,8 @@ task main()
 	//main drive
 	while (true) {
 		getJoystickSettings(joystick);
+		nxtDisplayTextLine(2, "%d", nMotorEncoder[liftL]);
+		nxtDisplayTextLine(4, "%d", nMotorEncoder[liftR]);
 		if (joy1Btn(2)) {
 			chassisToggle = true;
 			playImmediateTone((rand() % (800-300)) + 300, 5);
@@ -160,31 +162,31 @@ task liftPresets() {
 			}
 		}
 		// low setting
-		if (joy2Btn(2) && nMotorEncoder[liftL] > -1500) {
-			while (nMotorEncoder[liftL] > -1500) {
+		if (joy2Btn(2) && nMotorEncoder[liftR] > -1500) {
+			while (nMotorEncoder[liftR] > -1500) {
 				if (joy2Btn(11) && joy2Btn(12)) {
 					break;
 				}
-				motor[liftL] = -100;
-				motor[liftR] = 100;
+				motor[liftL] = 100;
+				motor[liftR] = -100;
 			}
 		} else if (joy2Btn(2)) {
-			while (nMotorEncoder[liftL] < -1500) {
+			while (nMotorEncoder[liftR] < -1500) {
 				if (joy2Btn(11) && joy2Btn(12)) {
 					break;
 				}
-				motor[liftL] = 25;
-				motor[liftR] = -25;
+				motor[liftL] = -15;
+				motor[liftR] = 15;
 			}
 		}
 		// ground setting
 		if (joystick.joy2_TopHat == 0) {
-			while (nMotorEncoder[liftL] < 0) {
+			while (nMotorEncoder[liftR] < 0) {
 				if (joy2Btn(11) && joy2Btn(12)) {
 					break;
 				}
-				motor[liftL] = 25;
-				motor[liftR] = -25;
+				motor[liftL] = -15;
+				motor[liftR] = 15;
 			}
 		}
 
