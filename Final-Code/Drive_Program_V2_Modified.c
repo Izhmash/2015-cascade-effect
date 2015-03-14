@@ -76,7 +76,7 @@ task main()
 		}
 		if (joy2Btn(5)) {
 			//close
-			servo[gateServo] = 30;
+			servo[gateServo] = 45;
 		}
 		//pole grabber
 		if (joy1Btn(1)) {
@@ -162,8 +162,8 @@ task liftLPresets() {
 			}
 		}
 		// medium-low setting
-		if (joy2Btn(1) && nMotorEncoder[liftL] < 3040) {
-			while (nMotorEncoder[liftL] < 3040) {
+		if (joy2Btn(1) && nMotorEncoder[liftL] < 2808) {
+			while (nMotorEncoder[liftL] < 2808) {
 				if (joy2Btn(11) && joy2Btn(12)) {
 					break;
 				}
@@ -171,7 +171,7 @@ task liftLPresets() {
 				//motor[liftR] = 100;
 			}
 		} else if (joy2Btn(1)) {
-			while (nMotorEncoder[liftL] > 3040) {
+			while (nMotorEncoder[liftL] > 2808) {
 				if (joy2Btn(11) && joy2Btn(12)) {
 					break;
 				}
@@ -180,8 +180,8 @@ task liftLPresets() {
 			}
 		}
 		// low setting
-		if (joy2Btn(2) && nMotorEncoder[liftL] < 2000) {
-			while (nMotorEncoder[liftL] < 2000) {
+		if (joy2Btn(2) && nMotorEncoder[liftL] < 1660) {
+			while (nMotorEncoder[liftL] < 1660) {
 				if (joy2Btn(11) && joy2Btn(12)) {
 					break;
 				}
@@ -189,7 +189,7 @@ task liftLPresets() {
 				//motor[liftR] = -100;
 			}
 		} else if (joy2Btn(2)) {
-			while (nMotorEncoder[liftL] > 2000) {
+			while (nMotorEncoder[liftL] > 1660) {
 				if (joy2Btn(11) && joy2Btn(12)) {
 					break;
 				}
@@ -273,8 +273,8 @@ task liftRPresets() {
 			}
 		}
 		// low setting
-		if (joy2Btn(2) && nMotorEncoder[liftR] > -2000) {
-			while (nMotorEncoder[liftR] > -2000) {
+		if (joy2Btn(2) && nMotorEncoder[liftR] > -1571) {
+			while (nMotorEncoder[liftR] > -1571) {
 				if (joy2Btn(11) && joy2Btn(12)) {
 					break;
 				}
@@ -282,7 +282,7 @@ task liftRPresets() {
 				motor[liftR] = -100;
 			}
 		} else if (joy2Btn(2)) {
-			while (nMotorEncoder[liftR] < -2000) {
+			while (nMotorEncoder[liftR] < -1571) {
 				if (joy2Btn(11) && joy2Btn(12)) {
 					break;
 				}
