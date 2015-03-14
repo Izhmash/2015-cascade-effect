@@ -103,8 +103,8 @@ void init() {
 	nMotorEncoder[chassisL] = 0;
 	nMotorEncoder[chassisR] = 0;
 	servo[trailerServoL] = 255;
-	servo[trailerServoR] = 155;
-	servo[gateServo] = 0;
+	servo[trailerServoR] = 0;
+	servo[gateServo] = 45;
 }
 
 //controls drive motors and determines speed toggle
@@ -237,8 +237,8 @@ task liftRPresets() {
 			}
 		}
 		// medium-high setting
-		if (joy2Btn(4) && nMotorEncoder[liftR] > -3959) {
-			while (nMotorEncoder[liftR] > -3959) {
+		if (joy2Btn(4) && nMotorEncoder[liftR] > -3900) {
+			while (nMotorEncoder[liftR] > -3900) {
 				if (joy2Btn(11) && joy2Btn(12)) {
 					break;
 				}
@@ -246,7 +246,7 @@ task liftRPresets() {
 				//motor[liftR] = 100;
 			}
 		} else if (joy2Btn(4)) {
-			while (nMotorEncoder[liftR] < -3959) {
+			while (nMotorEncoder[liftR] < -3900) {
 				if (joy2Btn(11) && joy2Btn(12)) {
 					break;
 				}
